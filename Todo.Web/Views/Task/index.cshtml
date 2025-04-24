@@ -1,0 +1,48 @@
+@model IEnumerable<TodoTaskViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Todo List Details</h2>
+<p><strong>Description:</strong> @ViewBag.ListDescription</p>
+<p><strong>Active:</strong> @(ViewBag.ListIsActive ? "Yes" : "No")</p>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.ListID">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
