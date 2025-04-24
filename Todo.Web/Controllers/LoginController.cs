@@ -58,12 +58,10 @@ namespace Todo.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromRoute] string id, RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
             if (model.Password != model.RepeatPassword)
             {
@@ -82,9 +80,9 @@ namespace Todo.Web.Controllers
 
                 await SignInAsync(userId, model.Name!, false);
             }
-            catch(Exception)
+            catch (Exception ex)
             {
-                ModelState.TryAddModelError(string.Empty, "An error occurred while registering");
+                ModelState.TryAddModelError(string.Empty, "Registration failed");
                 return View(model);
             }
 
